@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Movie Trailers</title>
+    <style>
+      table,th,tr,td{
+        border: 1px solid black;
+        padding: 8px;
+      }
+
+      
+    </style>
   </head>
   <body>
     <h1>Movie Trailers</h1>
@@ -14,5 +22,95 @@
       movies, directors, and genres. Users will be able to sign up, update their
       personal information, and create a list of their favorite movies.
     </p>
+    <table>
+      <thead>
+        <tr class="headers">
+          <th>REQUEST - Business Logic</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request Data Format</th>
+          <th>Response Data Body Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Return a list of All movies to the user </td>
+          <td> /movies</td>
+          <td>GET </td>
+          <td> - </td>
+          <td> A JSON object holding data about all movies</td>
+        </tr>
+        <tr>
+          <td>Return data about a single movie by title</td>
+          <td> /movies/[Title] </td>
+          <td> GET </td>
+          <td> - </td>
+          <td> A JSON object holding data about a single movie, containing an ID, title, and some other properties. Example:
+            <pre>
+              {
+                title: 'Fight Club',
+                year: 1999,
+                director: 'David Fincher',
+                genre: 'thriller',
+                imgUrl: '',
+                description: 'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.'
+              }
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Return data about a director by name </td>
+          <td> /movies/director/[name]</td>
+          <td> GET </td>
+          <td> - </td>
+          <td>A JSON object holding data about a single director, containing name, birth year, death year, movies. Example:
+            <pre>
+              {
+                name: 'Luc Besson',
+                bio: '',
+                birthYear: '',
+                deathYear: ''
+              }
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
+          <td>/users</td>
+          <td> POST </td>
+          <td> - </td>
+          <td> Created! </td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info</td>
+          <td> /users/[name]</td>
+          <td> PUT </td>
+          <td> - </td>
+          <td> succesfully updated.</td>
+        </tr>
+        <tr>
+          <td> Allow users to add a movie to their list of favorites</td>
+          <td> /users/[name]/favorites</td>
+          <td> POST </td>
+          <td></td>
+          <td> the movie was succesfully added to the favorite list.</td>
+        </tr>
+        <tr>
+          <td> Allow users to remove a movie to their list of favorites</td>
+          <td> /users/[name]/favorites/</td>
+          <td> DELETE </td>
+          <td> -</td>
+          <td> the movie was succesfully removed from favorite list.</td>
+        </tr>
+        <tr>
+          <td> Allow existing users to deregister
+  (remove a user by Username or id) </td>
+          <td> /users/[name]/</td>
+          <td> DELETE </td>
+          <td> - </td>
+          <td> Deleted</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
