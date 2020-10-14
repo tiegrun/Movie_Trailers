@@ -156,9 +156,9 @@ app.get('/movies', (req, res) => {
   res.send('Successful GET request returning data on all the movies');
 });
 
-// app.get('/movies/:title', (req, res) => {
-//   res.send('Successful GET request returning data on this movie');
-// });
+app.get('/movies/:title', (req, res) => {
+  res.send('Successful GET request returning data on this movie');
+});
 
 app.get('/movies/directors', (req, res) => {
   res.send('Successful GET request returning data on all the directors');
