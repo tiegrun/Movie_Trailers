@@ -2,148 +2,23 @@ const express = require('express');
 const morgan = require('morgan');
 const uuid = require('uuid');
 const app = express();
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
 
 app.use(morgan('common'));
 
-let topMovies = [
-  {
-    title: 'Fight Club',
-    year: 1999,
-    director: 'David Fincher',
-    genre: 'thriller',
-    imgUrl: '',
-    description: 'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.'
-  },
-  {
-    title: 'Interstellar',
-    year: 2014,
-    director: 'Christopher Nolan',
-    genre: 'adventure',
-    imgUrl: '',
-    description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.'
-  },
-  {
-    title: 'Inception',
-    year: 2010,
-    director: 'Christopher Nolan',
-    genre: 'action',
-    imgUrl: '',
-    description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.'
-  },
-  {
-    title: 'Leon: The Professional',
-    year: 1994,
-    director: 'Luc Besson',
-    genre: 'crime',
-    imgUrl: '',
-    description: 'Mathilda, a 12-year-old girl, is reluctantly taken in by Léon, a professional assassin, after her family is murdered. An unusual relationship forms as she becomes his protégée and learns the assassin\'s trade.'
-  },
-  {
-    title: 'The Girl with the Dragon Tattoo',
-    year: 2011,
-    director: 'David Fincher',
-    genre: 'thriller',
-    imgUrl: '',
-    description: 'Journalist Mikael Blomkvist is aided in his search for a woman who has been missing for forty years by Lisbeth Salander, a young computer hacker.'
-  },
-  {
-    title: 'The Platform',
-    year: 2019,
-    director: 'Galder Gaztelu Urrutia',
-    genre: 'horror',
-    imgUrl: '',
-    description: 'A vertical prison with one cell per level. Two people per cell. Only one food platform and two minutes per day to feed. An endless nightmare trapped in The Hole.'
-  },
-  {
-    title: 'Psycho',
-    year: 1960,
-    director: 'Alfred Hitchcock',
-    genre: 'thriller',
-    imgUrl: '',
-    description: 'A Phoenix secretary embezzles $40,000 from her employer\'s client, goes on the run, and checks into a remote motel run by a young man under the domination of his mother.'
-  },
-  {
-    title: "The Devil's Advocate",
-    year: 1997,
-    director: 'Taylor Hackford',
-    genre: 'thriller',
-    imgUrl: '',
-    description: 'An exceptionally adept Florida lawyer is offered a job at a high-end New York City law firm with a high-end boss - the biggest opportunity of his career to date.'
-  },
-  {
-    title: 'Glass',
-    year: 2019,
-    director: 'M. Night Shyamalan',
-    genre: 'thriller',
-    imgUrl: '',
-    description: 'Security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities.'
-  },
-  {
-    title: 'Split-24 identities',
-    year: 2016,
-    director: 'M. Night Shyamalan',
-    genre: 'horror',
-    imgUrl: '',
-    description: 'Three girls are kidnapped by a man with a diagnosed 23 distinct personalities. They must try to escape before the apparent emergence of a frightful new 24th.'
-  }
-];
-
-let topDirectors = [
-  {
-    name: 'David Fincher',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  },
-  {
-    name: 'Christopher Nolan',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  },
-  {
-    name: 'Luc Besson',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  },
-  {
-    name: 'Galder Gaztelu Urrutia',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  },
-  {
-    name: 'Alfred Hitchcock',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  },
-  {
-    name: 'Taylor Hackford',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  },
-  {
-    name: 'M. Night Shyamalan',
-    bio: '',
-    birthYear: '',
-    deathYear: ''
-  }
-];
-
 app.listen(8080, () => console.log('Your app is listening on port 8080.'));
+
+mongoose.connect('mongodb://localhost:27017/moviedb', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
   res.send(
     'View the latest movie trailers for many current and upcoming releases!'
   );
 });
-
-// app.get('/movies', (req, res) => {
-//   res.json(topMovies);
-// });
 
 app.use('/doc', express.static('public'));
 
@@ -153,37 +28,178 @@ app.use((err, req, res, next) => {
 });
 
 app.get('/movies', (req, res) => {
-  res.send('Successful GET request returning data on all the movies');
+  // res.send('Successful GET request returning data on all the movies');
+  Movies.find()
+    .then((movies)=>{
+      res.status(201).json(movies);
+    })
+    .catch((err)=>{
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    })
 });
 
 app.get('/movies/:title', (req, res) => {
-  res.send('Successful GET request returning data on this movie');
+  // res.send('Successful GET request returning data on this movie');
+  Movies.findOne({Title: req.params.title})
+    .then((movie)=>{
+      res.json(movie);
+    })
+    .catch((err)=>{
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    })
 });
 
-app.get('/movies/directors', (req, res) => {
-  res.send('Successful GET request returning data on all the directors');
+app.get('/movies/genres/:Name', (req, res) =>{
+  Movies.findOne({'Genre.Name': req.params.Name})
+  .then((movie)=>{
+    res.status(201).json(movie.Genre)
+    })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error:" + err);
+  });
 });
 
-app.get('/movies/directors/:name', (req, res) => {
-  res.send('Successful GET request returning data on the director');
+app.get('/movies/directors/:Name', (req, res) => {
+  Movies.findOne({'Director.Name': req.params.Name})
+    .then((movies)=>{
+      res.status(201).json(movies.Director);
+    })
+    .catch((err)=>{
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    })
 });
 
+app.get('/users', (req, res) => {
+  // res.send('Successful POST request returning user registration');
+  Users.find()
+    .then((users)=>{
+      res.status(201).json(users);
+    })
+    .catch((err)=>{
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    })
+});
+
+app.get('/users/:Name', (req, res) => {
+  Users.findOne({Username: req.params.Name})
+    .then((users)=>{
+      res.status(201).json(users);
+    })
+    .catch((err)=>{
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    })
+});
+
+
+//Not working
 app.post('/users', (req, res) => {
-  res.send('Successful POST request returning user registration');
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
-app.put('/users/:name', (req, res) => {
-  res.send('Successful PUT request returning user update');
+
+//Not working 
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
-app.post('/users/:name/favorites', (req, res) => {
-  res.send('Successful POST request returning favorite update');
+
+//working ok
+app.post("/users/:Username/favorites/:MovieId", (req, res) => {
+    Users.findOneAndUpdate(
+      { Username: req.params.Username },
+      { $push: { FavoriteMovies: req.params.MovieId } },
+      { new: true }, 
+      (error, updatedUser) => {
+        if (error) {
+          console.error(error);
+          res.status(500).send("Error: " + error);
+        } else {
+          res.json(updatedUser);
+        }
+      }
+    );
+  }
+);
+
+
+//working ok
+app.delete("/users/:Username/favorites/:MovieId", (req,res)=>{
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    { $pull: { FavoriteMovies: req.params.MovieId } },
+    { new: true }, 
+    (error, updatedUser) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
+}
+);
+
+
+//working ok
+app.delete('/users/:Username', (req, res) => {
+  // res.send('Successful DELETE request returning user deregistration');
+  Users.findOneAndRemove({Username: req.params.Username})
+    .then((user)=>{
+      if(!user){
+        res.status(400).send(req.params.Username + " was not found ");
+      }
+      else{
+        res.status(200).send(req.params.Username + " was Deleted");
+      }
+    })
+    .catch((err)=>{
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    });
 });
 
-app.delete('/users/:name/favorites', (req, res) => {
-  res.send('Successful DELETE request returning favorite delete');
-});
-
-app.delete('/users', (req, res) => {
-  res.send('Successful DELETE request returning user deregistration');
-});

@@ -48,13 +48,21 @@
           <td> A JSON object holding data about a single movie, containing an ID, title, and some other properties. Example:
             <pre>
               {
-                title: 'Fight Club',
-                year: 1999,
-                director: 'David Fincher',
-                genre: 'thriller',
-                imgUrl: '',
-                description: 'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.'
-              }
+                "Genre": {
+                    "Name": "Thriller",
+                    "Description": "Thrillers are characterized and ..."
+                },
+                "Director": {
+                    "Name": "David Fincher",
+                    "Bio": "David Andrew Leo Fincher is an American film ...",
+                    "Birth": "1962"
+                },
+                "_id": "5f8fe78abcba9bca1a6dd291",
+                "Title": "Fight Club",
+                "Description": "An insomniac office worker and a ...",
+                "ImagePath": "fight.png",
+                "Featured": true
+            }
             </pre>
           </td>
         </tr>
@@ -66,11 +74,10 @@
           <td>A JSON object holding data about a single director, containing name, birth year, death year, movies. Example:
             <pre>
               {
-                name: 'Luc Besson',
-                bio: '',
-                birthYear: '',
-                deathYear: ''
-              }
+                "Name": "Luc Besson",
+                "Bio": "Luc Paul Maurice Besson is a French ...",
+                "Birth": "1959"
+            }
             </pre>
           </td>
         </tr>
@@ -78,28 +85,64 @@
           <td>Allow new users to register</td>
           <td>/users</td>
           <td> POST </td>
-          <td> - </td>
-          <td> Created! </td>
+          <td>
+            <pre>
+              {
+                "Username": "someUserName",
+                "Password": "StrongPassword",
+                "Email": "someone@somegn.plutookno",
+                "Birthday": "1995-11-28T00:00:00.000Z"
+              }
+              
+            </pre>
+          </td>
+          <td> 
+            <pre>
+              {
+                "FavoriteMovies": [],
+                "_id": " ",
+                "Username": "someUserName",
+                "Password": "StrongPassword",
+                "Email": "someone@somegn.plutookno",
+                "Birthday": "1995-11-28T00:00:00.000Z"
+            }
+            </pre>
+          </td>
         </tr>
         <tr>
           <td>Allow users to update their user info</td>
           <td> /users/[name]</td>
           <td> PUT </td>
-          <td> - </td>
+          <td>
+            <pre>
+              {
+                "FavoriteMovies": [], <!--Update-->
+                "_id": " ", <!--Update-->
+                "Username": "someUserName", <!--Update-->
+                "Password": "StrongPassword",
+                "Email": "someone@somegn.plutookno", <!--Update-->
+                "Birthday": "1995-11-28T00:00:00.000Z" <!--Update-->
+            }
+            </pre>
+          </td>
           <td> succesfully updated.</td>
         </tr>
         <tr>
           <td> Allow users to add a movie to their list of favorites</td>
-          <td> /users/[name]/favorites</td>
+          <td> /users/[name]/favorites/MovieID</td>
           <td> POST </td>
-          <td></td>
+          <td>
+            -
+          </td>
           <td> the movie was succesfully added to the favorite list.</td>
         </tr>
         <tr>
           <td> Allow users to remove a movie to their list of favorites</td>
-          <td> /users/[name]/favorites/</td>
+          <td> /users/[name]/favorites/MovieID</td>
           <td> DELETE </td>
-          <td> -</td>
+          <td>
+             -
+          </td>
           <td> the movie was succesfully removed from favorite list.</td>
         </tr>
         <tr>
@@ -107,7 +150,9 @@
   (remove a user by Username or id) </td>
           <td> /users/[name]/</td>
           <td> DELETE </td>
-          <td> - </td>
+          <td>
+             - 
+          </td>
           <td> Deleted</td>
         </tr>
       </tbody>
