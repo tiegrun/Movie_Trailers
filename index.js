@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const app = express();
 const mongoose = require('mongoose');
@@ -8,6 +9,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+app.use(bodyParser.json());
 app.use(morgan('common'));
 
 app.listen(8080, () => console.log('Your app is listening on port 8080.'));
