@@ -5,12 +5,16 @@ const uuid = require('uuid');
 const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const passport = require('passport');
+require('./passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
 app.use(bodyParser.json());
 app.use(morgan('common'));
+
+let auth = require('./auth')(app);
 
 app.listen(8080, () => console.log('Your app is listening on port 8080.'));
 
@@ -29,7 +33,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
   // res.send('Successful GET request returning data on all the movies');
   Movies.find()
     .then((movies)=>{
@@ -41,7 +45,7 @@ app.get('/movies', (req, res) => {
     })
 });
 
-app.get('/movies/:title', (req, res) => {
+app.get('/movies/:title', passport.authenticate('jwt', {session: false}), (req, res) => {
   // res.send('Successful GET request returning data on this movie');
   Movies.findOne({Title: req.params.title})
     .then((movie)=>{
@@ -53,7 +57,7 @@ app.get('/movies/:title', (req, res) => {
     })
 });
 
-app.get('/movies/genres/:Name', (req, res) =>{
+app.get('/movies/genres/:Name', passport.authenticate('jwt', {session: false}), (req, res) =>{
   Movies.findOne({'Genre.Name': req.params.Name})
   .then((movie)=>{
     res.status(201).json(movie.Genre)
@@ -64,7 +68,7 @@ app.get('/movies/genres/:Name', (req, res) =>{
   });
 });
 
-app.get('/movies/directors/:Name', (req, res) => {
+app.get('/movies/directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.findOne({'Director.Name': req.params.Name})
     .then((movies)=>{
       res.status(201).json(movies.Director);
@@ -75,7 +79,7 @@ app.get('/movies/directors/:Name', (req, res) => {
     })
 });
 
-app.get('/users', (req, res) => {
+app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) => {
   // res.send('Successful POST request returning user registration');
   Users.find()
     .then((users)=>{
@@ -87,7 +91,7 @@ app.get('/users', (req, res) => {
     })
 });
 
-app.get('/users/:Name', (req, res) => {
+app.get('/users/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOne({Username: req.params.Name})
     .then((users)=>{
       res.status(201).json(users);
@@ -98,8 +102,6 @@ app.get('/users/:Name', (req, res) => {
     })
 });
 
-
-//Not working
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -126,9 +128,7 @@ app.post('/users', (req, res) => {
     });
 });
 
-
-//Not working 
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -150,7 +150,7 @@ app.put('/users/:Username', (req, res) => {
 
 
 //working ok
-app.post("/users/:Username/favorites/:MovieId", (req, res) => {
+app.post("/users/:Username/favorites/:MovieId", passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       { $push: { FavoriteMovies: req.params.MovieId } },
@@ -169,7 +169,7 @@ app.post("/users/:Username/favorites/:MovieId", (req, res) => {
 
 
 //working ok
-app.delete("/users/:Username/favorites/:MovieId", (req,res)=>{
+app.delete("/users/:Username/favorites/:MovieId", passport.authenticate('jwt', {session: false}), (req,res)=>{
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     { $pull: { FavoriteMovies: req.params.MovieId } },
@@ -188,7 +188,7 @@ app.delete("/users/:Username/favorites/:MovieId", (req,res)=>{
 
 
 //working ok
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
   // res.send('Successful DELETE request returning user deregistration');
   Users.findOneAndRemove({Username: req.params.Username})
     .then((user)=>{
