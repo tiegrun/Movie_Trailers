@@ -19,7 +19,10 @@ app.use(cors());
 
 let auth = require('./auth')(app);
 
-app.listen(8080, () => console.log('Your app is listening on port 8080.'));
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
+});
 
 mongoose.connect('mongodb://localhost:27017/moviedb', { useNewUrlParser: true, useUnifiedTopology: true });
 
