@@ -6,6 +6,8 @@ const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const passport = require('passport');
+const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 require('./passport');
 
 const Movies = Models.Movie;
@@ -13,6 +15,7 @@ const Users = Models.User;
 
 app.use(bodyParser.json());
 app.use(morgan('common'));
+app.use(cors());
 
 let auth = require('./auth')(app);
 
@@ -102,30 +105,43 @@ app.get('/users/:Name', passport.authenticate('jwt', {session: false}), (req, re
     })
 });
 
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
-      } else {
-        Users
-          .create({
-            Username: req.body.Username,
-            Password: req.body.Password,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
+app.post('/users', 
+  [
+    check('Username', 'Username is required').isLength({min: 4}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ],
+  (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + 'already exists');
+        } else {
+          Users
+            .create({
+              Username: req.body.Username,
+              Password: hashedPassword,
+              Email: req.body.Email,
+              Birthday: req.body.Birthday
+            })
+            .then((user) =>{res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
           })
-          .then((user) =>{res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
 });
 
 app.put('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
