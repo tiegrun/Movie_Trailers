@@ -40,7 +40,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/movies', (req, res) => {
   // res.send('Successful GET request returning data on all the movies');
   Movies.find()
     .then((movies)=>{
@@ -52,7 +52,7 @@ app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) =>
     })
 });
 
-app.get('/movies/:title', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/movies/:title', (req, res) => {
   // res.send('Successful GET request returning data on this movie');
   Movies.findOne({Title: req.params.title})
     .then((movie)=>{
@@ -64,7 +64,7 @@ app.get('/movies/:title', passport.authenticate('jwt', {session: false}), (req, 
     })
 });
 
-app.get('/movies/genres/:Name', passport.authenticate('jwt', {session: false}), (req, res) =>{
+app.get('/movies/genres/:Name', (req, res) =>{
   Movies.findOne({'Genre.Name': req.params.Name})
   .then((movie)=>{
     res.status(201).json(movie.Genre)
@@ -75,7 +75,7 @@ app.get('/movies/genres/:Name', passport.authenticate('jwt', {session: false}), 
   });
 });
 
-app.get('/movies/directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/movies/directors/:Name', (req, res) => {
   Movies.findOne({'Director.Name': req.params.Name})
     .then((movies)=>{
       res.status(201).json(movies.Director);
