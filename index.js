@@ -86,7 +86,7 @@ app.get('/movies/directors/:Name', (req, res) => {
     })
 });
 
-app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/users', (req, res) => {
   // res.send('Successful POST request returning user registration');
   Users.find()
     .then((users)=>{
@@ -98,7 +98,7 @@ app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) => 
     })
 });
 
-app.get('/users/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/users/:Name', (req, res) => {
   Users.findOne({Username: req.params.Name})
     .then((users)=>{
       res.status(201).json(users);
