@@ -3,4 +3,5 @@
 /client/dist
 dist/
 /client/.cache
+/client/node_modules
 
