@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+.main-view {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-evenly;
+  grid-gap: 1rem;
+  margin-top: 3rem;
+}

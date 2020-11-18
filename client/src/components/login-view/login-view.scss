@@ -1,4 +1,17 @@
-.Button {
-  padding: 3px;
-  left: 15px;
+$primary-color: #f4f6f4;
+
+form {
+  background: $primary-color;
+  margin-top: 3rem;
+  padding: 1rem;
+  border: 2px solid darken($primary-color, 15%);
+  border-radius: 4px;
+
+  .Label {
+    font-size: 1.5rem;
+  }
+
+  .Button {
+    margin-top: 1.5rem;
+  }
 }

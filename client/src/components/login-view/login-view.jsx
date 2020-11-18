@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
-import {Button, Form, Container,Row,Col,} from 'react-bootstrap';
+import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
+import './login-view.scss';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -13,34 +14,13 @@ export function LoginView(props) {
     props.onLoggedIn(username);
     };
 
-
-    
-
-
-
-
   return (
-    // <form>
-    //   <label>
-    //     Username:
-    //     <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-    //   </label>
-    //   <label>
-    //     Password:
-    //     <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-    //   </label>
-    //   <button type="button" onClick={handleSubmit}>Submit</button>
-    // </form>
-// // ---
-
-<Container>
-      <br></br>
-      <br></br>
+    <Container>
+      {/* <br></br>
+      <br></br> */}
       <Form>
-        
-        <h2>Please Login</h2>
         <Form.Group className='login'>
-          <Row>
+          <Row className='row'>
             <Col>
               <Form.Label className='Label'>Username:</Form.Label>
               <Form.Control
@@ -62,19 +42,15 @@ export function LoginView(props) {
               />
             </Col>
           </Row>
-          <Row>
+          <Row className='row text-center'>
             <Col className='Button'>
-              <Button type='button' variant='primary' onClick={handleSubmit}>
-                Submit
+              <Button type='button' variant='info' size="lg" onClick={handleSubmit}>
+                Log in
               </Button>
             </Col>
           </Row>
         </Form.Group>
-        
-       
       </Form>
     </Container>
-
-
   );
 }

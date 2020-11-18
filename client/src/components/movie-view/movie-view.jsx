@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
@@ -33,9 +35,7 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
         </div>
-        <button onClick={() =>  window.location.href='/'}>
-        Back
-      </button>
+        <Button onClick={() =>  window.location.href='/movie-card'} variant="info">Back</Button>     
        </div>     
     );
   }

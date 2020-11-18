@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import './main-view.scss';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
