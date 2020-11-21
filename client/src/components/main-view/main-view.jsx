@@ -5,6 +5,13 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
+
 export class MainView extends React.Component {
 
   constructor() {
@@ -40,6 +47,12 @@ export class MainView extends React.Component {
     });
   }
 
+  onBtnClick() {
+    this.setState({
+      selectedMovie: null,
+    });
+  }
+
   onLoggedIn(user) {
     this.setState({
       user
@@ -55,13 +68,16 @@ export class MainView extends React.Component {
 
     return (
      <div className="main-view">
-      {selectedMovie
-         ? <MovieView movie={selectedMovie}/>
-         : movies.map(movie => (
-           <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-         ))
+      {selectedMovie ? (
+        <MovieView movie={selectedMovie} onClick={() => this.onBtnClick()}/>
+        ) 
+          : (
+              movies.map((movie) => (
+                <MovieCard key={movie._id} movie={movie} onClick={(movie) => this.onMovieClick(movie)}/>
+                ))
+            )
       }
-     </div>
+    </div>
     );
   }
 }
