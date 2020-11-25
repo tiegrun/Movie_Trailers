@@ -109,7 +109,7 @@ app.get('/users/:Name', passport.authenticate('jwt', {session: false}), (req, re
     })
 });
 
-app.post('/users', passport.authenticate('jwt', {session: false}),
+app.post('/users', 
   [
     check('Username', 'Username is required').isLength({min: 4}),
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
