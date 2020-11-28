@@ -2,27 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from "axios";
 import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import './login-view.scss';
-
-// import {
-//   BrowserRouter as Router,
-//   Redirect,
-//   Switch,
-//   Route,
-//   Link
-// } from "react-router-dom";
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
-
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(username, password);
-  //   // Send a request to the server for authentication then call props.onLoggedIn(username)
-  //   props.onLoggedIn(username);
-  //   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +26,7 @@ export function LoginView(props) {
   };
     
   return (
-          <Container>
+          <Container className="loginContainer">
             <Form>
               <Form.Group className='login'>
                 <Row className='row'>
@@ -69,6 +54,11 @@ export function LoginView(props) {
                 <Row className='row text-center'>
                 <Col className='Button'>
               <Button type='button' variant='info' size="lg" onClick={handleSubmit}>Log in</Button>
+              <Link to={`/register`}>
+                <Button variant="secondary" size="lg" className="registerBtn" type="submit">
+                   Sign Up
+                </Button>
+              </Link>
             </Col>
             </Row>
           </Form.Group>

@@ -1,10 +1,12 @@
 $primary-color: #f4f6f4;
+$secondary-color: #4d2101;
+$primary-padding: 0.3rem;
 
 .movie-view {
   display: grid;
   grid-column: 2;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
   background: $primary-color;
   padding: 1rem;
   border: 2px solid darken($primary-color, 15%);
@@ -13,36 +15,49 @@ $primary-color: #f4f6f4;
   img {
     width: 100%;
     grid-column: 1;
-    grid-row: 1 / span 4;
+    grid-row: 1 / span 5;
   }
 
   .label {
     font-size: 1.2rem;
     font-weight: bold;
     background: lighten($primary-color, 20%);
-    margin-left: 2rem;
-    padding-right: 1rem;
+    color: lighten($secondary-color, 20%);
+    padding: $primary-padding;
+  }
+
+  .value {
+    margin-left: 1rem;
   }
 
   .movie-title {
     grid-column: 2;
     grid-row: 1;
     font-size: 1.4rem;
+    margin-left: 2rem;
   }
 
   .movie-description {
     grid-column: 2;
     grid-row: 2;
-    // margin-left: 2rem;
+    margin-left: 2rem;
   }
 
   .movie-genre {
     grid-column: 2;
     grid-row: 3;
+    margin-left: 2rem;
   }
 
   .movie-director {
     grid-column: 2;
     grid-row: 4;
+    margin-left: 2rem;
+  }
+
+  .backBtn {
+    margin-left: 2rem;
+    grid-column: 2;
+    grid-row: 5;
   }
 }

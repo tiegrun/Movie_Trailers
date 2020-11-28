@@ -1,5 +1,9 @@
 $primary-color: #f4f6f4;
 
+.loginContainer {
+  grid-column: 2;
+}
+
 form {
   background: $primary-color;
   margin-top: 3rem;
@@ -13,5 +17,7 @@ form {
 
   .Button {
     margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-around;
   }
 }
