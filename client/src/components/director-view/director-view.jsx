@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import axios from "axios";
 import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 // import { BrowserRouter as Router, Route} from "react-router-dom";
@@ -10,11 +9,14 @@ import Card from 'react-bootstrap/Card';
 export class DirectorView extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    
+    this.state = {
+      
+    };
   }
 
   render() {
-    const {director, id } = this.props;
+    const {movies, director, id } = this.props;
 
     if (!director) return null;
 

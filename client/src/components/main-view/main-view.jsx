@@ -30,7 +30,9 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       // selectedMovie: null,
-      user: null
+      user: null, 
+      Director: null,
+      Genre: null
     };
   }
 
@@ -44,17 +46,17 @@ export class MainView extends React.Component {
     };
   }
 
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }
+  // onMovieClick(movie) {
+  //   this.setState({
+  //     selectedMovie: movie
+  //   });
+  // }
 
-  onBtnClick() {
-    this.setState({
-      selectedMovie: null,
-    });
-  }
+  // onBtnClick() {
+  //   this.setState({
+  //     selectedMovie: null,
+  //   });
+  // }
 
   onLoggedIn(authData) {
     console.log(authData);
@@ -115,7 +117,9 @@ export class MainView extends React.Component {
           />
           <Route path="/register" render={() => <RegistrationView />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-          <Route path="/directors/:name" render={({ match }) => {if (!movies) 
+
+          <Route path="/directors/:name" render={({ match }) => {
+            if (!movies) 
             return <div className="main-view" />;
             return (<DirectorView director={movies.find((m) => m.Director.Name === match.params.name).Director}
                                   id={movies.find((m) => m.Director.Name === match.params.name)._id}/>);

@@ -13,8 +13,39 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, /*onClick*/ } = this.props;
+    const { movie, onClick  } = this.props;
 
+    // for example, it's not right :))
+
+    const favs = Array();
+
+    const addFav = ((e) => {
+
+        if(favs.includes(movie.Title)){
+
+          if(e.target.innerText === "Remove from favorites"){
+            favs.pop();
+            console.log(favs);
+            alert('Successfully removed');
+            e.target.innerText = "Add to favorites" ;
+          }
+          else{
+            favs.push(movie.Title);
+            alert('Already exists');
+            favs.pop();
+            console.log(favs);
+            e.target.innerText = "Remove from favorites" ;
+          }
+        }
+        else{
+          console.log("Successfully Added");
+          favs.push(movie.Title);
+          console.log(favs);
+          alert('Successfully Added');
+          e.target.innerText = "Remove from favorites"
+         }
+    })
+    
     if (!movie) return null;
 
     return (
@@ -42,8 +73,10 @@ export class MovieView extends React.Component {
           </Link>
         </div>
         <div className="backBtn">
+         
+          <Button variant="warning" size="sm" type="submit" onClick={addFav}>Add to favorites</Button>
           <Link to={`/`}>
-            <Button variant="info">Back</Button>
+            <Button variant="info" size="sm">Back</Button>
           </Link>
         </div>   
        </div>     

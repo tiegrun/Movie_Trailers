@@ -115,6 +115,7 @@ export class ProfileView extends React.Component {
               <Card.Text><span className="cardLabel">Username: </span>{this.state.Username}</Card.Text>
               <Card.Text><span className="cardLabel">Email: </span>{this.state.Email}</Card.Text>
               <Card.Text><span className="cardLabel">Birthday: </span>{this.state.Birthday}</Card.Text>
+              <Card.Text><span className="cardLabel">Favorite Movies: </span>Empty</Card.Text>
               <Card.Text>
                 <Button variant="link" onClick={() => this.updateUser()}>Update Profile</Button>
                 <Button variant="link" onClick={() => this.deleteUser()}>Delete User</Button>
