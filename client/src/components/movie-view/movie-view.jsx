@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import './movie-view.scss';
@@ -38,6 +39,16 @@ export class MovieView extends React.Component {
           }
         }
         else{
+          // const username = localStorage.getItem('user');
+          // const token = localStorage.getItem('token');
+        
+
+          // axios
+          // .post(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
+          //    headers: { Authorization: `Bearer ${token}` },
+          //    FavoriteMovies: movie._id,
+          //    })
+             
           console.log("Successfully Added");
           favs.push(movie.Title);
           console.log(favs);
