@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
 import './registration-view.scss';
 
@@ -54,6 +55,9 @@ export function RegistrationView(props) {
         <Button className="button-main" type="submit" onClick={handleSubmit}>
           Register
         </Button>
+        <Link to={`/`}>
+          <Button variant="link">Back</Button>
+        </Link>
       </Form>
     </Container>
   );

@@ -60,49 +60,58 @@ export class ProfileView extends React.Component {
       });
   }
 
-  deleteUser(token){
+  deleteUser(){
     const username = localStorage.getItem('user');
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('user');
-  
+    const token = localStorage.getItem('token');
+      
     axios
     .delete(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
-      Username: this.state.Username,
-      Password: this.state.Password,
-      Email: this.state.Email,
-      Birthday:  this.state.Birthday,
+      headers: { Authorization: `Bearer ${token}` },
     })
     .then(() => {
-      
       alert('Your account has been successfully deleted!');
-      console.log(data);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       window.open('/', '_self');
     })
-    .catch((e) => {
+    .catch(() => {
       console.log('It is impossible to delete');
     });
   }
 
-  updateUser(token){
-  const username = localStorage.getItem('user');
-
-    axios
-      .put('https://tiegrun-movie-trailers.herokuapp.com/users/${username}', {
-        Username: this.state.Username,
-        Password: this.state.Password,
-        Email: this.state.Email,
-        Birthday: this.state.Birthday,
-      })
-      .then((response) => {
-        const data = response.data;
-        alert('Your account has been successfully updated!');
-        console.log(data);
-        window.open('/', '_self');
-      })
-      .catch((e) => {
-        console.log('It is impossible to update');
-      });
-  }
+  // updateUser(){
+  // const username = localStorage.getItem('user');
+  // const token = localStorage.getItem('token');
+  // // const pass = prompt("Please enter new Password", "Password");
+  // // console.log(token);
+  //   axios
+  //     .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
+  //       headers: { 
+  //         "Authorization": `Bearer ${token}` ,
+  //       data: {
+          
+  //         "Username": "apero",
+  //         "Password": "apero",
+  //         "Email": "apero@jbjabs.com",
+  //         "Birthday": 1111-1444-55,
+  //         "FavoriteMovies": [],
+  //       },
+  //     }})
+  //     //   Username: this.state.Username,
+  //     //   Password: this.state.Password,
+  //     //   Email: this.state.Email,
+  //     //   Birthday: this.state.Birthday,
+  //     // })
+  //     .then((response) => {
+  //       const data = response.data;
+  //       alert('Your password has been successfully updated!');
+        
+  //       window.open('/', '_self');
+  //     })
+  //     .catch((e) => {
+  //       console.log('It is impossible to update');
+  //     });
+  // }
 
   render() {
     const { movies } = this.props;
@@ -119,7 +128,7 @@ export class ProfileView extends React.Component {
               <Card.Text>
                 <Button variant="link" onClick={() => this.updateUser()}>Update Profile</Button>
                 <Button variant="link" onClick={() => this.deleteUser()}>Delete User</Button>
-                <Button variant="link" onClick={() => onLoggedOut()}>Log out</Button>
+                <Button variant="link" onClick={() => this.onLoggedOut()}>Log out</Button>
                 <Link to={'/'}>
                   <Button variant="link">Home Page</Button>
                 </Link>
