@@ -21,7 +21,6 @@ export class ProfileView extends React.Component {
   }
 
   componentDidMount() {
-    //authentication
     const accessToken = localStorage.getItem('token');
     this.getUser(accessToken);
   }
@@ -33,9 +32,7 @@ export class ProfileView extends React.Component {
       username: null,
     });
 
-    
     window.open('/', '_self');
-    // window.location.href='/' ;
   }
 
   getUser(token) {
@@ -79,39 +76,46 @@ export class ProfileView extends React.Component {
     });
   }
 
-  // updateUser(){
-  // const username = localStorage.getItem('user');
-  // const token = localStorage.getItem('token');
-  // // const pass = prompt("Please enter new Password", "Password");
-  // // console.log(token);
-  //   axios
-  //     .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
-  //       headers: { 
-  //         "Authorization": `Bearer ${token}` ,
-  //       data: {
+  updateUser(){
+  const username = localStorage.getItem('user');
+  const token = localStorage.getItem('token');
+  const pass = prompt("Please enter new Password", "Password");
+  const data = {
           
-  //         "Username": "apero",
-  //         "Password": "apero",
-  //         "Email": "apero@jbjabs.com",
-  //         "Birthday": 1111-1444-55,
-  //         "FavoriteMovies": [],
-  //       },
-  //     }})
-  //     //   Username: this.state.Username,
-  //     //   Password: this.state.Password,
-  //     //   Email: this.state.Email,
-  //     //   Birthday: this.state.Birthday,
-  //     // })
-  //     .then((response) => {
-  //       const data = response.data;
-  //       alert('Your password has been successfully updated!');
+    "Username": "apero",
+    "Password": pass,
+    "Email": "apero@jbjabs.com",
+    "Birthday": 1111-1444-55,
+    "FavoriteMovies": [],
+  }
+    axios
+      .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, 
+      {
+         data, headers: { 
+         Authorization: `Bearer ${token}`
+       }
+      }
+      //   {headers: { 
+      //     "Authorization": `Bearer ${token}`
+      // }},
+      // data
+    )
+      //   Username: this.state.Username,
+      //   Password: this.state.Password,
+      //   Email: this.state.Email,
+      //   Birthday: this.state.Birthday,
+      // })
+      .then((res) => {
+      
+        console.log(res);
+        alert('Your password has been successfully updated!');
         
-  //       window.open('/', '_self');
-  //     })
-  //     .catch((e) => {
-  //       console.log('It is impossible to update');
-  //     });
-  // }
+        window.open('/', '_self');
+      })
+      .catch((e) => {
+        console.log('It is impossible to update');
+      });
+  }
 
   render() {
     const { movies } = this.props;

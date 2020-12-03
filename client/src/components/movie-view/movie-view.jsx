@@ -13,6 +13,8 @@ export class MovieView extends React.Component {
     this.state = {};
   }
 
+  
+
   render() {
     const { movie, onClick  } = this.props;
 
@@ -20,7 +22,14 @@ export class MovieView extends React.Component {
 
     const favs = Array();
 
-    const addFav = ((e) => {
+    // movies.filter((movie) =>
+    // this.state.favoriteMovies.includes(movie._id)
+
+
+    const handlesubmit = ((e) => {
+          const username = localStorage.getItem('user');
+          const token = localStorage.getItem('token');
+      
 
         if(favs.includes(movie.Title)){
 
@@ -29,6 +38,7 @@ export class MovieView extends React.Component {
             console.log(favs);
             alert('Successfully removed');
             e.target.innerText = "Add to favorites" ;
+            
           }
           else{
             favs.push(movie.Title);
@@ -39,23 +49,42 @@ export class MovieView extends React.Component {
           }
         }
         else{
-          // const username = localStorage.getItem('user');
-          // const token = localStorage.getItem('token');
-        
 
-          // axios
-          // .post(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
-          //    headers: { Authorization: `Bearer ${token}` },
-          //    FavoriteMovies: movie._id,
-          //    })
-             
+          axios
+          .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
+             headers: { Authorization: `Bearer ${token}` },
+             FavoriteMovies: [movie._id],
+             data:{
+              // Username: res.data.Username,
+              // Password: res.data.Password,
+              // Email: res.data.Email,
+              // Birthday: res.data.Birthday,
+              // FavoriteMovies: [],
+
+              Username: "aaaaaaaaa",
+              Password: "aaaaa",
+              Email: "sss@MediaListd",
+              Birthday: 25,
+              FavoriteMovies: [],
+             }
+             })
+             .then((data) => {
+              
+                console.log("done")
+                
+            })
+            .catch(function (err) {
+              console.log(err);
+            });
+           
           console.log("Successfully Added");
           favs.push(movie.Title);
           console.log(favs);
           alert('Successfully Added');
-          e.target.innerText = "Remove from favorites"
+          e.target.innerText = "Remove from favorites";
          }
-    })
+        }
+    )
     
     if (!movie) return null;
 
@@ -85,7 +114,7 @@ export class MovieView extends React.Component {
         </div>
         <div className="backBtn">
          
-          <Button variant="warning" size="sm" type="submit" onClick={addFav}>Add to favorites</Button>
+          <Button variant="warning" size="sm" type="submit" onClick={handlesubmit}>Add to favorites</Button>
           <Link to={`/`}>
             <Button variant="info" size="sm">Back</Button>
           </Link>
