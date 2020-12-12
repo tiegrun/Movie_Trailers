@@ -16,4 +16,14 @@ $primary-padding: 0.3rem;
     font-weight: bold;
     padding: $primary-padding;
   }
+
+  li {
+    background: lighten($primary-color, 20%);
+    list-style-type: none;
+    padding: 0.2rem;
+  }
+
+  .btns {
+    display: flex;
+  }
 }

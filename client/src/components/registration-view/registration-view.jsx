@@ -52,7 +52,7 @@ export function RegistrationView(props) {
           <Form.Control type="date" value={birthday} onChange={(e) => createBday(e.target.value)}
           />
         </Form.Group>
-        <Button className="button-main" type="submit" onClick={handleSubmit}>
+        <Button className="button-main" variant='info' type="submit" onClick={handleSubmit}>
           Register
         </Button>
         <Link to={`/`}>

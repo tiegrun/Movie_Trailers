@@ -10,78 +10,106 @@ export class MovieView extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+     
+    };
   }
 
-  
+  componentDidMount() {
+    const accessToken = localStorage.getItem('token');
+    this.getUser(accessToken);
+  }
+
+  getUser(token) {
+    const username = localStorage.getItem('user');
+
+    axios
+      .get(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      
+      .then((res) => {
+        this.setState({
+          Username: res.data.Username,
+          Password: res.data.Password,
+          Email: res.data.Email,
+          Birthday: res.data.Birthday,
+          FavoriteMovies: res.data.FavoriteMovies,
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
 
   render() {
     const { movie, onClick  } = this.props;
 
-    // for example, it's not right :))
-
-    const favs = Array();
-
-    // movies.filter((movie) =>
-    // this.state.favoriteMovies.includes(movie._id)
-
-
     const handlesubmit = ((e) => {
           const username = localStorage.getItem('user');
           const token = localStorage.getItem('token');
-      
+          const FavoriteMovieList = this.state.FavoriteMovies;
 
-        if(favs.includes(movie.Title)){
+          //object values of FavoriteMovies
+          const ValueFavoriteMovieList = Object.values(FavoriteMovieList);
+      
+        if(ValueFavoriteMovieList.includes(movie._id)){
 
           if(e.target.innerText === "Remove from favorites"){
-            favs.pop();
-            console.log(favs);
+
+            axios
+              .delete(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}/favorites/${movie._id}`, 
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              })
+              .then((data ) => {
+                // console.log(data)
+                window.open(`/movies/${movie._id}`, '_self');
+              })
+              .catch(function (err) {
+              console.log(err);
+              });
+
+            console.log("removed");
+
             alert('Successfully removed');
+
             e.target.innerText = "Add to favorites" ;
-            
           }
           else{
-            favs.push(movie.Title);
             alert('Already exists');
-            favs.pop();
-            console.log(favs);
+
             e.target.innerText = "Remove from favorites" ;
           }
         }
         else{
 
           axios
-          .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, {
-             headers: { Authorization: `Bearer ${token}` },
-             FavoriteMovies: [movie._id],
-             data:{
-              // Username: res.data.Username,
-              // Password: res.data.Password,
-              // Email: res.data.Email,
-              // Birthday: res.data.Birthday,
-              // FavoriteMovies: [],
-
-              Username: "aaaaaaaaa",
-              Password: "aaaaa",
-              Email: "sss@MediaListd",
-              Birthday: 25,
-              FavoriteMovies: [],
-             }
-             })
-             .then((data) => {
-              
-                console.log("done")
-                
+             .post(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}/favorites/${movie._id}`, 
+            {
+              Username: this.state.Username,
+              Password: this.state.Password,
+              Email: this.state.Email,
+              Birthday: this.state.Birthday,
+              FavoriteMovies: [movie._id]
+            },
+            {
+              headers: { Authorization: `Bearer ${token}` }
+            }
+            )
+             .then((data ) => {
+                console.log(data)
+                window.open(`/movies/${movie._id}`, '_self');
             })
             .catch(function (err) {
               console.log(err);
             });
            
-          console.log("Successfully Added");
-          favs.push(movie.Title);
-          console.log(favs);
           alert('Successfully Added');
+
           e.target.innerText = "Remove from favorites";
+
+          console.log(FavoriteMovieList)
          }
         }
     )

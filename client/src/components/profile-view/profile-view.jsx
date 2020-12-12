@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
 import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import {Form, Row, Col, nav} from 'react-bootstrap';
+
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 
@@ -15,7 +19,7 @@ export class ProfileView extends React.Component {
       password: null,
       email: null,
       birthday: null,
-      favoriteMovies: [],
+      FavoriteMovies: [],
       movies: [],
     };
   }
@@ -23,6 +27,7 @@ export class ProfileView extends React.Component {
   componentDidMount() {
     const accessToken = localStorage.getItem('token');
     this.getUser(accessToken);
+    this.getMovies(accessToken);
   }
 
   onLoggedOut() {
@@ -33,6 +38,21 @@ export class ProfileView extends React.Component {
     });
 
     window.open('/', '_self');
+  }
+
+  getMovies(token) {
+    axios.get('https://tiegrun-movie-trailers.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then((res) => {
+      // Assign the result to the state
+      this.setState({
+        movies: res.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   getUser(token) {
@@ -76,69 +96,113 @@ export class ProfileView extends React.Component {
     });
   }
 
-  updateUser(){
-  const username = localStorage.getItem('user');
-  const token = localStorage.getItem('token');
-  const pass = prompt("Please enter new Password", "Password");
-  const data = {
-          
-    "Username": "apero",
-    "Password": pass,
-    "Email": "apero@jbjabs.com",
-    "Birthday": 1111-1444-55,
-    "FavoriteMovies": [],
-  }
-    axios
-      .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, 
-      {
-         data, headers: { 
-         Authorization: `Bearer ${token}`
-       }
-      }
-      //   {headers: { 
-      //     "Authorization": `Bearer ${token}`
-      // }},
-      // data
-    )
-      //   Username: this.state.Username,
-      //   Password: this.state.Password,
-      //   Email: this.state.Email,
-      //   Birthday: this.state.Birthday,
-      // })
-      .then((res) => {
-      
-        console.log(res);
-        alert('Your password has been successfully updated!');
-        
-        window.open('/', '_self');
-      })
-      .catch((e) => {
-        console.log('It is impossible to update');
-      });
-  }
+  updateUsername(){
+    const username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    const newUser = prompt("Please enter new Username", this.state.Username);
+    console.log(newUser)
+
+    if(newUser == null || newUser == this.state.Username){
+    console.log("There is no change")
+    }
+    else{
+      axios
+        .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, 
+          {
+          // Username: this.state.Username,
+            Username: newUser,
+            Password: this.state.Password,
+            Email: this.state.Email,
+            Birthday: this.state.Birthday,
+            FavoriteMovies: this.state.FavoriteMovies,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        )
+        .then((data) => {
+          console.log(data);
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.open('/', '_self');    
+        })
+        .catch(function (err) {
+          console.log('It is impossible to update');
+        })
+     }
+  };
+
+  updatePassword(){
+    const username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    const newPassword = prompt("Please enter new Password", this.state.Password);
+    console.log(newPassword)
+
+    if(newPassword == null || newPassword == this.state.Password){
+      console.log("There is no change")
+    }
+    else{
+      axios
+        .put(`https://tiegrun-movie-trailers.herokuapp.com/users/${username}`, 
+          {
+          // Username: this.state.Username,
+            Username: this.state.Username,
+            Password: newPassword,
+            Email: this.state.Email,
+            Birthday: this.state.Birthday,
+            FavoriteMovies: this.state.FavoriteMovies,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        )
+        .then((data) => {
+          console.log(data);
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.open('/', '_self');    
+        })
+        .catch(function (err) {
+          console.log('It is impossible to update');
+        })
+     }
+  };
 
   render() {
-    const { movies } = this.props;
-   
+    const {filteredMovie} = this.props;
+    const favoriteMovieList = this.state.FavoriteMovies;
+    const allMovies = this.state.movies;
+    
     return (
+      
         <div className="profile-view">
           <Card>
             <Card.Body>
             <Card.Title>My Profile</Card.Title>
               <Card.Text><span className="cardLabel">Username: </span>{this.state.Username}</Card.Text>
               <Card.Text><span className="cardLabel">Email: </span>{this.state.Email}</Card.Text>
-              <Card.Text><span className="cardLabel">Birthday: </span>{this.state.Birthday}</Card.Text>
-              <Card.Text><span className="cardLabel">Favorite Movies: </span>{this.state.FavoriteMovies}</Card.Text>
-              <Card.Text>
-                <Button variant="link" onClick={() => this.updateUser()}>Update Profile</Button>
-                <Button variant="link" onClick={() => this.deleteUser()}>Delete User</Button>
-                <Button variant="link" onClick={() => this.onLoggedOut()}>Log out</Button>
+              <Card.Text><span className="cardLabel">Favorite Movies: </span>
+                            {favoriteMovieList.filter(movie => movie.includes("")).map(filteredMovie => (
+                              <li key={filteredMovie}>
+                                <Link to={`/movies/${filteredMovie}`}>
+                                 {allMovies.Genre}{filteredMovie}
+                                </Link>
+                             </li>
+                            ))}
+              </Card.Text>
+              <div className="btns">
+                <DropdownButton id="dropdown-item-button" title="Settings">
+                  <Dropdown.Item as="button" onClick={() => this.updateUsername()}>Change Username</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={() => this.updatePassword()}>Change Password</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={() => this.onLoggedOut()}>Log out</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={() => this.deleteUser()}>Delete a User</Dropdown.Item>
+                </DropdownButton>
                 <Link to={'/'}>
                   <Button variant="link">Home Page</Button>
                 </Link>
-              </Card.Text>
-            </Card.Body>
-          </Card>
+              </div>  
+            </Card.Body>  
+          </Card>  
         </div>
     );
   }

@@ -21,6 +21,7 @@ export function LoginView(props) {
       props.onLoggedIn(data);
     })
     .catch(e => {
+      alert("Username or Password is incorrect")
       console.log('no such user')
     });
   };
@@ -53,7 +54,7 @@ export function LoginView(props) {
                 </Row>
                 <Row className='row text-center'>
                 <Col className='Button'>
-              <Button type='button' variant='info' size="lg" onClick={handleSubmit}>Log in</Button>
+              <Button type='button' variant='info' size="lg" onClick={handleSubmit} selected>Log in</Button>
               <Link to={`/register`}>
                 <Button variant="secondary" size="lg" className="registerBtn" type="submit">
                    Sign Up
