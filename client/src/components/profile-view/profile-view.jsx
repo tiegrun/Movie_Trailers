@@ -20,14 +20,12 @@ export class ProfileView extends React.Component {
       email: null,
       birthday: null,
       FavoriteMovies: [],
-      movies: [],
     };
   }
 
   componentDidMount() {
     const accessToken = localStorage.getItem('token');
     this.getUser(accessToken);
-    this.getMovies(accessToken);
   }
 
   onLoggedOut() {
@@ -38,21 +36,6 @@ export class ProfileView extends React.Component {
     });
 
     window.open('/', '_self');
-  }
-
-  getMovies(token) {
-    axios.get('https://tiegrun-movie-trailers.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then((res) => {
-      // Assign the result to the state
-      this.setState({
-        movies: res.data
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   getUser(token) {
@@ -169,9 +152,9 @@ export class ProfileView extends React.Component {
   };
 
   render() {
-    const {filteredMovie} = this.props;
+    const {movies} = this.props;
     const favoriteMovieList = this.state.FavoriteMovies;
-    const allMovies = this.state.movies;
+    // console.log(movies.filter(movie => favoriteMovieList.includes(movie._id)).map(movie => movie.Title))
     
     return (
       
@@ -182,13 +165,20 @@ export class ProfileView extends React.Component {
               <Card.Text><span className="cardLabel">Username: </span>{this.state.Username}</Card.Text>
               <Card.Text><span className="cardLabel">Email: </span>{this.state.Email}</Card.Text>
               <Card.Text><span className="cardLabel">Favorite Movies: </span>
-                            {favoriteMovieList.filter(movie => movie.includes("")).map(filteredMovie => (
+                            {/* {favoriteMovieList.filter(movie => movie.includes("")).map(filteredMovie => (
                               <li key={filteredMovie}>
                                 <Link to={`/movies/${filteredMovie}`}>
-                                 {allMovies.Genre}{filteredMovie}
+                                 {filteredMovie}
                                 </Link>
                              </li>
-                            ))}
+                            ))} */}
+                            {movies.filter(movie => favoriteMovieList.includes(movie._id)).map(movie => (
+                              <li key={movie._id}>
+                                <Link to={`/movies/${movie._id}`}>
+                                  {movie.Title}
+                                </Link>
+                             </li>
+                            ))}    
               </Card.Text>
               <div className="btns">
                 <DropdownButton id="dropdown-item-button" title="Settings">

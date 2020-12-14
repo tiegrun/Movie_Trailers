@@ -43,7 +43,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, onClick  } = this.props;
+    const { movie, onClick, user  } = this.props;
 
     const handlesubmit = ((e) => {
           const username = localStorage.getItem('user');
@@ -141,11 +141,13 @@ export class MovieView extends React.Component {
           </Link>
         </div>
         <div className="backBtn">
-         
           <Button variant="warning" size="sm" type="submit" onClick={handlesubmit}>Add to favorites</Button>
           <Link to={`/`}>
-            <Button variant="info" size="sm">Back</Button>
+            <Button variant="info" size="sm">Home</Button>
           </Link>
+          <Link to={`/users/${user}`}>
+                <Button variant="success">My Profile</Button>
+            </Link>
         </div>   
        </div>     
     );

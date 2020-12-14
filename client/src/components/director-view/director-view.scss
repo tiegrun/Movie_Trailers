@@ -1,9 +1,13 @@
 $primary-color: #f4f6f4;
 $secondary-color: #4d2101;
 $primary-padding: 0.3rem;
+$primary-margin: 3rem;
 
 .director-view {
   grid-column: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: $primary-margin;
 
   .card {
     background: $primary-color;

@@ -1,16 +1,18 @@
 $primary-color: #f4f6f4;
 $secondary-color: #4d2101;
 $primary-padding: 0.3rem;
+$primary-margin: 3rem;
 
 .movie-view {
   display: grid;
-  grid-column: 2;
+  grid-column: 2 / span 3;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: auto auto auto auto auto;
   background: $primary-color;
   padding: 1rem;
   border: 2px solid darken($primary-color, 15%);
   border-radius: 4px;
+  margin: $primary-margin;
 
   img {
     width: 100%;

@@ -1,3 +1,6 @@
+$primary-color: #f4f6f4;
+$secondary-color: #4d2101;
+
 * {
   box-sizing: border-box;
 }
@@ -7,11 +10,34 @@
   grid-template-columns: auto auto auto;
   justify-content: space-evenly;
   grid-gap: 1rem;
-  margin-top: 3rem;
+  // background: darken($primary-color, 2%);
 
-  .profilLink {
+  .movies-list {
     grid-column: 1 / span 3;
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-evenly;
+    grid-gap: 1rem;
+    margin: 3rem 0;
+    padding: 2rem;
+    border: 2px solid darken($primary-color, 1%);
+    border-radius: 4px;
+    background: lighten($primary-color, 20%);
+
+    .search-bar {
+      grid-column: 1 / span 2;
+    }
+
+    .profilLink {
+      grid-column: 3;
+      display: flex;
+      justify-content: center;
+    }
   }
+
+  // .profilLink {
+  //   grid-column: 1 / span 3;
+  //   display: flex;
+  //   justify-content: flex-end;
+  // }
 }

@@ -1,9 +1,11 @@
 $primary-color: #f4f6f4;
 $secondary-color: #4d2101;
 $primary-padding: 0.3rem;
+$primary-margin: 3rem;
 
 .profile-view {
   grid-column: 2;
+  margin-top: $primary-margin;
 
   .card {
     background: $primary-color;
@@ -20,7 +22,7 @@ $primary-padding: 0.3rem;
   li {
     background: lighten($primary-color, 20%);
     list-style-type: none;
-    padding: 0.2rem;
+    padding: 0.3rem;
   }
 
   .btns {

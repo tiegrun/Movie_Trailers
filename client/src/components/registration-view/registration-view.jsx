@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
@@ -28,7 +28,7 @@ export function RegistrationView(props) {
         window.open('/', '_self');
       })
       .catch((e) => {
-        console.log('error registering the user');
+        console.log(data , 'error registering the user');
       });
   };
 
