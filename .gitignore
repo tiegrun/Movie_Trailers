@@ -1,7 +1,7 @@
 /node_modules
 /.cache
-/client/dist
-dist/
+# /client/dist
+# dist/
 /client/.cache
 /client/node_modules
 

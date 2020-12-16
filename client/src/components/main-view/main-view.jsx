@@ -58,7 +58,7 @@ export class MainView extends React.Component {
       user: null,
     });
 
-    window.open('/', '_self');
+    window.open('/client', '_self');
     // window.location.href='/' ;
   }
 
@@ -85,7 +85,7 @@ export class MainView extends React.Component {
     // if (!movies) return <div className="main-view"/>;
 
     return (
-      <Router>
+      <Router basename="/client">
          <div className="main-view"> 
        
           <Route exact path="/" render={() => {if (!user) 

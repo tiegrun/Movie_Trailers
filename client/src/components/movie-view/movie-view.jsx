@@ -64,7 +64,7 @@ export class MovieView extends React.Component {
               })
               .then((data ) => {
                 // console.log(data)
-                window.open(`/movies/${movie._id}`, '_self');
+                window.open(`/client/movies/${movie._id}`, '_self');
               })
               .catch(function (err) {
               console.log(err);
@@ -99,7 +99,7 @@ export class MovieView extends React.Component {
             )
              .then((data ) => {
                 console.log(data)
-                window.open(`/movies/${movie._id}`, '_self');
+                window.open(`/client/movies/${movie._id}`, '_self');
             })
             .catch(function (err) {
               console.log(err);

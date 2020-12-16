@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -34,6 +35,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/doc', express.static('public'));
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

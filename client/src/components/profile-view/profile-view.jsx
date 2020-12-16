@@ -35,7 +35,7 @@ export class ProfileView extends React.Component {
       username: null,
     });
 
-    window.open('/', '_self');
+    window.open('/client', '_self');
   }
 
   getUser(token) {
@@ -72,7 +72,7 @@ export class ProfileView extends React.Component {
       alert('Your account has been successfully deleted!');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.open('/', '_self');
+      window.open('/client', '_self');
     })
     .catch(() => {
       console.log('It is impossible to delete');
@@ -107,7 +107,7 @@ export class ProfileView extends React.Component {
           console.log(data);
           localStorage.removeItem('token');
           localStorage.removeItem('user');
-          window.open('/', '_self');    
+          window.open('/client', '_self');    
         })
         .catch(function (err) {
           console.log('It is impossible to update');
@@ -143,7 +143,7 @@ export class ProfileView extends React.Component {
           console.log(data);
           localStorage.removeItem('token');
           localStorage.removeItem('user');
-          window.open('/', '_self');    
+          window.open('/client', '_self');    
         })
         .catch(function (err) {
           console.log('It is impossible to update');

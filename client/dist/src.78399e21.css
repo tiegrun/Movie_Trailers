@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+}
+
+.main-view {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-evenly;
+  grid-gap: 1rem;
+}
+.main-view .movies-list {
+  grid-column: 1/span 3;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-evenly;
+  grid-gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem;
+  border: 2px solid #f1f4f1;
+  border-radius: 4px;
+  background: white;
+}
+.main-view .movies-list .search-bar {
+  grid-column: 1/span 2;
+}
+.main-view .movies-list .profilLink {
+  grid-column: 3;
+  display: flex;
+  justify-content: center;
+}
+.movie-view {
+  display: grid;
+  grid-column: 2/span 3;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto auto auto auto auto;
+  background: #f4f6f4;
+  padding: 1rem;
+  border: 2px solid #cad4ca;
+  border-radius: 4px;
+  margin: 3rem;
+}
+.movie-view img {
+  width: 100%;
+  grid-column: 1;
+  grid-row: 1/span 5;
+}
+.movie-view .label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: white;
+  color: #b24c02;
+  padding: 0.3rem;
+}
+.movie-view .value {
+  margin-left: 1rem;
+}
+.movie-view .movie-title {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 1.4rem;
+  margin-left: 2rem;
+}
+.movie-view .movie-description {
+  grid-column: 2;
+  grid-row: 2;
+  margin-left: 2rem;
+}
+.movie-view .movie-genre {
+  grid-column: 2;
+  grid-row: 3;
+  margin-left: 2rem;
+}
+.movie-view .movie-director {
+  grid-column: 2;
+  grid-row: 4;
+  margin-left: 2rem;
+}
+.movie-view .backBtn {
+  margin-left: 2rem;
+  align-items: center;
+  grid-column: 2;
+  grid-row: 5;
+  display: flex;
+  justify-content: space-between;
+}
+.loginContainer {
+  grid-column: 2;
+}
+
+form {
+  background: #f4f6f4;
+  margin-top: 3rem;
+  padding: 1rem;
+  border: 2px solid #cad4ca;
+  border-radius: 4px;
+}
+form .Label {
+  font-size: 1.5rem;
+}
+form .Button {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+.regContainer {
+  grid-column: 2;
+}
+.director-view {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.director-view .card {
+  background: #f4f6f4;
+}
+.director-view .cardLabel {
+  background: white;
+  color: #b24c02;
+  margin-right: 1rem;
+  font-weight: bold;
+  padding: 0.3rem;
+}
+.genre-view {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.genre-view .card {
+  background: #f4f6f4;
+}
+.genre-view .cardLabel {
+  background: white;
+  color: #b24c02;
+  margin-right: 1rem;
+  font-weight: bold;
+  padding: 0.3rem;
+}
+.profile-view {
+  grid-column: 2;
+  margin-top: 3rem;
+}
+.profile-view .card {
+  background: #f4f6f4;
+}
+.profile-view .cardLabel {
+  background: white;
+  color: #b24c02;
+  margin-right: 1rem;
+  font-weight: bold;
+  padding: 0.3rem;
+}
+.profile-view li {
+  background: white;
+  list-style-type: none;
+  padding: 0.3rem;
+}
+.profile-view .btns {
+  display: flex;
+}
+.my-flix {
+  color: steelblue;
+}
+
+/*# sourceMappingURL=/src.78399e21.css.map */
