@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import './movie-card.scss';
 import Card from 'react-bootstrap/Card';
-
 import { Link } from "react-router-dom";
+
+/**
+ * Genre info
+ * @function MovieCard
+ * @param {string} props  
+ * @returns {Card} - movie card info
+ */
 
 export class MovieCard extends React.Component {
   render() {

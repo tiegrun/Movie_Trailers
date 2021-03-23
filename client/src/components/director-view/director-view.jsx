@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
 import { Link } from "react-router-dom";
-// import { BrowserRouter as Router, Route} from "react-router-dom";
 import './director-view.scss';
 import Card from 'react-bootstrap/Card';
+
+/**
+ * Director info
+ * @function DirectorView
+ * @param {string} props 
+ * @returns {DirectorView}
+ */
 
 export class DirectorView extends React.Component {
   constructor() {

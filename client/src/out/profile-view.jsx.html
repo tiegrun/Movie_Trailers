@@ -1,4 +1,32 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: profile-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: profile-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
@@ -181,42 +209,64 @@ export class ProfileView extends React.Component {
     
     return (
       
-        <div className="profile-view">
-          <Card>
-            <Card.Body>
-            <Card.Title>My Profile</Card.Title>
-              <Card.Text><span className="cardLabel">Username: </span>{this.state.Username}</Card.Text>
-              <Card.Text><span className="cardLabel">Email: </span>{this.state.Email}</Card.Text>
-              <Card.Text><span className="cardLabel">Favorite Movies: </span>
+        &lt;div className="profile-view">
+          &lt;Card>
+            &lt;Card.Body>
+            &lt;Card.Title>My Profile&lt;/Card.Title>
+              &lt;Card.Text>&lt;span className="cardLabel">Username: &lt;/span>{this.state.Username}&lt;/Card.Text>
+              &lt;Card.Text>&lt;span className="cardLabel">Email: &lt;/span>{this.state.Email}&lt;/Card.Text>
+              &lt;Card.Text>&lt;span className="cardLabel">Favorite Movies: &lt;/span>
                             {/* {favoriteMovieList.filter(movie => movie.includes("")).map(filteredMovie => (
-                              <li key={filteredMovie}>
-                                <Link to={`/movies/${filteredMovie}`}>
+                              &lt;li key={filteredMovie}>
+                                &lt;Link to={`/movies/${filteredMovie}`}>
                                  {filteredMovie}
-                                </Link>
-                             </li>
+                                &lt;/Link>
+                             &lt;/li>
                             ))} */}
                             {movies.filter(movie => favoriteMovieList.includes(movie._id)).map(movie => (
-                              <li key={movie._id}>
-                                <Link to={`/movies/${movie._id}`}>
+                              &lt;li key={movie._id}>
+                                &lt;Link to={`/movies/${movie._id}`}>
                                   {movie.Title}
-                                </Link>
-                             </li>
+                                &lt;/Link>
+                             &lt;/li>
                             ))}    
-              </Card.Text>
-              <div className="btns">
-                <DropdownButton id="dropdown-item-button" title="Settings">
-                  <Dropdown.Item as="button" onClick={() => this.updateUsername()}>Change Username</Dropdown.Item>
-                  <Dropdown.Item as="button" onClick={() => this.updatePassword()}>Change Password</Dropdown.Item>
-                  <Dropdown.Item as="button" onClick={() => this.onLoggedOut()}>Log out</Dropdown.Item>
-                  <Dropdown.Item as="button" onClick={() => this.deleteUser()}>Delete a User</Dropdown.Item>
-                </DropdownButton>
-                <Link to={'/'}>
-                  <Button variant="link">Home Page</Button>
-                </Link>
-              </div>  
-            </Card.Body>  
-          </Card>  
-        </div>
+              &lt;/Card.Text>
+              &lt;div className="btns">
+                &lt;DropdownButton id="dropdown-item-button" title="Settings">
+                  &lt;Dropdown.Item as="button" onClick={() => this.updateUsername()}>Change Username&lt;/Dropdown.Item>
+                  &lt;Dropdown.Item as="button" onClick={() => this.updatePassword()}>Change Password&lt;/Dropdown.Item>
+                  &lt;Dropdown.Item as="button" onClick={() => this.onLoggedOut()}>Log out&lt;/Dropdown.Item>
+                  &lt;Dropdown.Item as="button" onClick={() => this.deleteUser()}>Delete a User&lt;/Dropdown.Item>
+                &lt;/DropdownButton>
+                &lt;Link to={'/'}>
+                  &lt;Button variant="link">Home Page&lt;/Button>
+                &lt;/Link>
+              &lt;/div>  
+            &lt;/Card.Body>  
+          &lt;/Card>  
+        &lt;/div>
     );
   }
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updateUsername">updateUsername</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Mar 23 2021 02:29:36 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -63,7 +63,6 @@ export class MovieView extends React.Component {
                 headers: { Authorization: `Bearer ${token}` },
               })
               .then((data ) => {
-                // console.log(data)
                 window.open(`/client/movies/${movie._id}`, '_self');
               })
               .catch(function (err) {

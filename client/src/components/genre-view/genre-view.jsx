@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 import {Button, Form, Container, Row, Col, nav} from 'react-bootstrap';
 import { Link } from "react-router-dom";
-// import { BrowserRouter as Router, Route} from "react-router-dom";
 import './genre-view.scss';
 import Card from 'react-bootstrap/Card';
+
+/**
+ * Genre info
+ * @function GenreView
+ * @param {string} props  
+ * @returns {Container} - genre info
+ */
 
 export class GenreView extends React.Component {
   constructor() {
